@@ -10,7 +10,7 @@
 
 function [Ypredicted] = KNN(a,XTrain,YTrain,K)
 
-mdl = fitcknn(XTrain,YTrain','NumNeighbors',K,'Standardize',1);    % Trained Model   
+mdl = fitcknn(XTrain,YTrain','NumNeighbors',K,'Standardize',K);    % Trained Model   
 for i = 1:size(a,1)
     predicted(i,1:size(Theta,2)) = Theta(i,1:size(Theta,2));
     predicted(i,(size(Theta,2)+1)) = predict(mdl,Theta(i,:));
