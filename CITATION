@@ -1,0 +1,9 @@
+@MISC{Benchmark_MOR_Finance,
+key = {},
+author = {Jadhav O.},
+title = {Model order reduction for parametric high dimensional models in the analysis of financial Risk (Version 0.1)},
+month = June,
+year = 2021,
+doi = {10.xxxx/zenodo.xxxxxxx},
+note = {see also: \url{https://github.com/ROMSOC/example-repo-0.1}}
+}

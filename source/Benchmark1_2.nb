@@ -1,0 +1,86 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2377,         78]
+NotebookOptionsPosition[      1828,         59]
+NotebookOutlinePosition[      2173,         74]
+CellTagsIndexPosition[      2130,         71]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Benchmark Case 1: Parameter calibration", "Title",
+ CellChangeTimes->{{3.833600581719441*^9, 
+  3.8336006341991453`*^9}},ExpressionUUID->"6b6f6b0e-1bf6-4e0e-8a33-\
+9aca33a0ce2e"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Inputs: \n\t1. simulated yield curves\n\t2. Tenor \
+points\n\t3. parameter b\n\t4. parameter sigma\nOutput:\n\t1. Swap curves", \
+"Subsection"]], "Section",
+ CellChangeTimes->{
+  3.8336006429876757`*^9},ExpressionUUID->"7cf76d4d-e461-4efc-a97a-\
+ff1b1a131771"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"FileToEvaluate", "=", 
+     RowBox[{
+     "NotebookOpen", "[", 
+      "\"\<C:/.../Benchmark_MOR_Finance/source/1FHWCalibration.nb\>\"", 
+      "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SelectionMove", "[", 
+     RowBox[{"FileToEvaluate", ",", "All", ",", "Notebook"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SelectionEvaluate", "[", "FileToEvaluate", "]"}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.833600647166689*^9, 3.83360072130576*^9}, 
+   3.8336008287584743`*^9, 
+   3.8336018385692825`*^9},ExpressionUUID->"35609e35-3dd7-4e0b-9bce-\
+6670a87fcca7"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{2552, Automatic}, {Automatic, -8}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 184, 3, 96, "Title",ExpressionUUID->"6b6f6b0e-1bf6-4e0e-8a33-9aca33a0ce2e"],
+Cell[CellGroupData[{
+Cell[789, 29, 284, 5, 218, "Section",ExpressionUUID->"7cf76d4d-e461-4efc-a97a-ff1b1a131771"],
+Cell[1076, 36, 724, 19, 124, "Input",ExpressionUUID->"35609e35-3dd7-4e0b-9bce-6670a87fcca7"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

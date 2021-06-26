@@ -1,0 +1,260 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9437,        252]
+NotebookOptionsPosition[      7271,        209]
+NotebookOutlinePosition[      7613,        224]
+CellTagsIndexPosition[      7570,        221]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Calibration of parameter a (t)", "Title",
+ CellChangeTimes->{{3.833446707022869*^9, 3.8334467775699835`*^9}, 
+   3.8334473456956778`*^9},ExpressionUUID->"14469ba8-65a1-46e0-bc78-\
+5b63545eeada"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Onkar Jadhav, TUB\nPlease refer Shreve and \
+MathConsult technical reports for more details\n\nInputs: \n\t1. simulated \
+yield curves\n\t2. Tenor points\n\t3. parameter b\n\t4. parameter sigma\n\
+Output:\n\t1. Swap curves\n\t", "Subsection"]], "Section",
+ CellChangeTimes->{{3.833467790945156*^9, 3.833467794480418*^9}, {
+  3.833467869936098*^9, 3.8334678869987917`*^9}, {3.833467922200238*^9, 
+  3.8334679712812953`*^9}, {3.833468531398142*^9, 
+  3.833468559867015*^9}},ExpressionUUID->"47f12132-d600-4f2d-aa20-\
+79b4d8fceb34"],
+
+Cell["Initialize the UnRisk pricing engine.", "Text",
+ CellChangeTimes->{{3.8334468033965244`*^9, 3.8334468088003693`*^9}, {
+  3.833446909954677*^9, 
+  3.8334469252039723`*^9}},ExpressionUUID->"8d9058f3-4151-4ea6-940d-\
+b53e0b0b72de"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<UnRisk`UnRiskFrontEnd`\>\"", "]"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.83344692743954*^9, 3.833446928112837*^9}, 
+   3.8334469696946096`*^9},ExpressionUUID->"f8e8f7d6-6c2f-4f6e-ac02-\
+401d35d02669"],
+
+Cell["Give the tenor points.", "Text",
+ CellChangeTimes->{{3.8334469454723654`*^9, 
+  3.8334469523943186`*^9}},ExpressionUUID->"ebaa9f9b-debc-4d25-8e97-\
+a07e20fc652f"],
+
+Cell[BoxData[
+ RowBox[{"t1", " ", "=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+   "65", ",", "260", ",", "520", ",", "780", ",", "1040", ",", "1300", ",", 
+    "1560", ",", "1820", ",", "2080", ",", "2340", ",", "2600"}], 
+   "}"}]}]], "Input",
+ CellLabel->"In[9]:=",ExpressionUUID->"1639db38-1447-4d26-a114-b319fa3be207"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{
+   "65", ",", "260", ",", "520", ",", "780", ",", "1040", ",", "1300", ",", 
+    "1560", ",", "1820", ",", "2080", ",", "2340", ",", "2600"}], "}"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.833446972679495*^9, 
+  3.833446972698189*^9}},ExpressionUUID->"7e9fa97f-1f62-4195-b4d9-\
+112e88e76d8d"],
+
+Cell["Give my today as per requirement.", "Text",
+ CellChangeTimes->{{3.833446861347858*^9, 
+  3.8334468831309776`*^9}},ExpressionUUID->"9958470d-4400-48e2-ab0c-\
+2cfb691a6a5c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyToday", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"2019", ",", "1", ",", "22"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"list", " ", "=", " ", 
+  RowBox[{"{", "}"}]}]}], "Input",
+ CellChangeTimes->{{3.8334469762888565`*^9, 3.8334469828313417`*^9}, {
+  3.8336015032583513`*^9, 
+  3.8336015071021433`*^9}},ExpressionUUID->"8b8a52d5-6920-43f3-ae8c-\
+f471fb73a6ba"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Calibration Process: For loop reads the simulated yield curves.\
+\>", "Section",
+ CellChangeTimes->{{3.833446994845151*^9, 
+  3.8334470193473043`*^9}},ExpressionUUID->"cf2df6ce-fc17-4db5-9ac3-\
+988ddf8e666c"],
+
+Cell[BoxData[
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "\[LessEqual]", "9999"}], ",", 
+   RowBox[{"i", "=", 
+    RowBox[{"i", "+", "1"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Parallelize", "[", 
+    RowBox[{
+     RowBox[{"a", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{
+       "\"\<C:/.../Benchmark_MOR_Finance/source/SimulatedYieldCurves.xlsx\>\"\
+", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Data\>\"", ",", "1", ",", "i"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"MyYieldCurve", "=", 
+      RowBox[{"MakeYieldCurve", "[", 
+       RowBox[{"MyToday", ",", 
+        RowBox[{"Thread", "[", 
+         RowBox[{"{", 
+          RowBox[{"t1", ",", "a"}], "}"}], "]"}], ",", 
+        RowBox[{"CompoundingFrequency", "\[Rule]", "\"\<Continuous\>\""}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"MyModel", "=", 
+      RowBox[{"MakeGeneralHullWhiteModel", "[", 
+       RowBox[{"0.015", ",", "0.006", ",", "MyYieldCurve"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"DD", " ", "=", 
+      RowBox[{"\"\<Deterministic Drifts\>\"", " ", "/.", " ", 
+       RowBox[{"Properties", "[", "MyModel", "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"DDF1FL", "=", 
+      RowBox[{"AppendTo", "[", 
+       RowBox[{"list", ",", "DD"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+    "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.833447042345805*^9, 3.8334470487330637`*^9}, {
+   3.8336015832984767`*^9, 3.8336015838803515`*^9}, 3.833601794938986*^9, {
+   3.8336068659962225`*^9, 
+   3.833606891866849*^9}},ExpressionUUID->"45c4fd70-cbbc-4945-b557-\
+33fa93ed8652"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Set a directory for your output", "Section",
+ CellChangeTimes->{{3.8334471462242613`*^9, 
+  3.8334471654127088`*^9}},ExpressionUUID->"951caef5-e054-400b-9215-\
+dd8949b86f86"],
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8334471628163595`*^9, 3.833447169485523*^9}, {
+  3.8336016841743116`*^9, 
+  3.8336017395401278`*^9}},ExpressionUUID->"d35de7dc-f547-4fd8-b2a3-\
+695dd621fb03"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Export the calibrated parameter a(t) in an excel file", "Section",
+ CellChangeTimes->{{3.8334471790094852`*^9, 
+  3.8334471979259963`*^9}},ExpressionUUID->"bad908cd-95d2-4d19-93ef-\
+b5b018395d8f"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{
+  3.833447217058676*^9, {3.8334472729989557`*^9, 
+   3.833447275413439*^9}},ExpressionUUID->"ebb5fd95-2747-449c-b1a8-\
+21376243bddf"],
+
+Cell["Name to store a file is given as DD_ 1FHWModel_ 10000", "Text",
+ CellChangeTimes->{{3.8334472334800096`*^9, 
+  3.833447267566883*^9}},ExpressionUUID->"ebb6c5ca-576b-4121-afe1-\
+9b9135864bde"],
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+  "\"\<C:/.../Benchmark_MOR_Finance/source/DD_1FHWModel_10000.xlsx\>\"", ",", 
+   "DDF1FL"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8334472099136295`*^9, 3.8334472102259684`*^9}, {
+  3.8334472539319696`*^9, 3.8334472584705687`*^9}, {3.8336017420919337`*^9, 
+  3.8336017442013607`*^9}, {3.833601779564009*^9, 
+  3.833601783030076*^9}},ExpressionUUID->"ad939ec2-3e4b-4032-9edb-\
+d5a496941994"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Check the details of your model using the following function", "Section",
+ CellChangeTimes->{{3.8334472936408653`*^9, 
+  3.83344732962982*^9}},ExpressionUUID->"d5180315-222a-4e53-aecb-\
+adce7c29f4b9"],
+
+Cell[BoxData[
+ RowBox[{"Properties", "[", "MyModel", "]"}]], "Input",ExpressionUUID->"58bf7b82-a17f-4a38-9294-f8bec24ddf05"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1264, 637},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 200, 3, 96, "Title",ExpressionUUID->"14469ba8-65a1-46e0-bc78-5b63545eeada"],
+Cell[CellGroupData[{
+Cell[805, 29, 553, 8, 326, "Section",ExpressionUUID->"47f12132-d600-4f2d-aa20-79b4d8fceb34"],
+Cell[1361, 39, 234, 4, 34, "Text",ExpressionUUID->"8d9058f3-4151-4ea6-940d-b53e0b0b72de"],
+Cell[1598, 45, 276, 6, 48, "Input",ExpressionUUID->"f8e8f7d6-6c2f-4f6e-ac02-401d35d02669"],
+Cell[1877, 53, 168, 3, 34, "Text",ExpressionUUID->"ebaa9f9b-debc-4d25-8e97-a07e20fc652f"],
+Cell[2048, 58, 316, 7, 28, "Input",ExpressionUUID->"1639db38-1447-4d26-a114-b319fa3be207"],
+Cell[2367, 67, 365, 9, 48, "Input",ExpressionUUID->"7e9fa97f-1f62-4195-b4d9-112e88e76d8d"],
+Cell[2735, 78, 177, 3, 34, "Text",ExpressionUUID->"9958470d-4400-48e2-ab0c-2cfb691a6a5c"],
+Cell[2915, 83, 454, 12, 67, "Input",ExpressionUUID->"8b8a52d5-6920-43f3-ae8c-f471fb73a6ba"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3406, 100, 218, 5, 67, "Section",ExpressionUUID->"cf2df6ce-fc17-4db5-9ac3-988ddf8e666c"],
+Cell[3627, 107, 1674, 41, 143, "Input",ExpressionUUID->"45c4fd70-cbbc-4945-b557-33fa93ed8652"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5338, 153, 180, 3, 67, "Section",ExpressionUUID->"951caef5-e054-400b-9215-dd8949b86f86"],
+Cell[5521, 158, 285, 6, 28, "Input",ExpressionUUID->"d35de7dc-f547-4fd8-b2a3-695dd621fb03"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5843, 169, 202, 3, 67, "Section",ExpressionUUID->"bad908cd-95d2-4d19-93ef-b5b018395d8f"],
+Cell[6048, 174, 180, 4, 28, "Input",ExpressionUUID->"ebb5fd95-2747-449c-b1a8-21376243bddf"],
+Cell[6231, 180, 197, 3, 34, "Text",ExpressionUUID->"ebb6c5ca-576b-4121-afe1-9b9135864bde"],
+Cell[6431, 185, 442, 9, 28, "Input",ExpressionUUID->"ad939ec2-3e4b-4032-9edb-d5a496941994"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6910, 199, 206, 3, 67, "Section",ExpressionUUID->"d5180315-222a-4e53-aecb-adce7c29f4b9"],
+Cell[7119, 204, 124, 1, 28, "Input",ExpressionUUID->"58bf7b82-a17f-4a38-9294-f8bec24ddf05"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

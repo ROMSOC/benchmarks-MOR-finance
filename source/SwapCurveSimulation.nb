@@ -1,0 +1,269 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8809,        261]
+NotebookOptionsPosition[      6601,        216]
+NotebookOutlinePosition[      6946,        231]
+CellTagsIndexPosition[      6903,        228]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Swap Curve Simulations", "Title",
+ CellChangeTimes->{{3.833468061227705*^9, 
+  3.833468068898984*^9}},ExpressionUUID->"d4e38c14-4604-420f-8dce-\
+fb7da8a6b5aa"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Onkar Jadhav, TUB
+Inputs: 
+\t1. simulated yield curves
+\t2. Tenor points
+Output:
+\t1. Swap curves
+\t\
+\>", "Subsection",
+ CellChangeTimes->{{3.8334680805755444`*^9, 3.833468084283922*^9}, {
+  3.833468438020708*^9, 
+  3.833468489724121*^9}},ExpressionUUID->"d607ef56-66f4-4286-8540-\
+2cb891365ddd"],
+
+Cell["Initialize the UnRisk pricing engine.", "Text",
+ CellChangeTimes->{
+  3.8334680985841837`*^9},ExpressionUUID->"cbbd0a74-7714-46c8-8098-\
+24204d919cd5"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Needs", "[", "\"\<UnRisk`UnRiskFrontEnd`\>\"", "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.8334681216148834`*^9, 
+  3.83346812721029*^9}},ExpressionUUID->"87132680-580c-4a4d-8b81-\
+94b0c68a12bc"],
+
+Cell["Give the tenor points.", "Text",
+ CellChangeTimes->{{3.8334681365487375`*^9, 
+  3.8334681604012365`*^9}},ExpressionUUID->"2e762729-b9ec-4be5-82cf-\
+f40fd1881af3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"t1", " ", "=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+   "65", ",", "130", ",", "195", ",", "260", ",", "520", ",", "780", ",", 
+    "1040", ",", "1300", ",", "1560", ",", "1820", ",", "2080", ",", "2340", 
+    ",", "2600", ",", "3120", ",", "3900", ",", "5200", ",", "6500", ",", 
+    "7800", ",", "10400", ",", "13000"}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.8334681572158833`*^9, 3.8334681572198095`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"24007d40-355a-4f41-b9df-c345010e733b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "65", ",", "130", ",", "195", ",", "260", ",", "520", ",", "780", ",", 
+   "1040", ",", "1300", ",", "1560", ",", "1820", ",", "2080", ",", "2340", 
+   ",", "2600", ",", "3120", ",", "3900", ",", "5200", ",", "6500", ",", 
+   "7800", ",", "10400", ",", "13000"}], "}"}]], "Output",
+ CellChangeTimes->{3.833468182653975*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"19b6912c-060c-4109-938c-6a76b3e89589"]
+}, Open  ]],
+
+Cell["\<\
+
+Give my today as per requirement.\
+\>", "Text",
+ CellChangeTimes->{{3.8334681855687113`*^9, 
+  3.833468190743843*^9}},ExpressionUUID->"9bcba76b-2657-465c-a426-\
+53f9d861f30c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MyToday", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{"2019", ",", "1", ",", "22"}], "}"}]}], ";"}]], "Input",Expression\
+UUID->"51e2aba9-4bd1-40ab-8ffd-b0575308cf74"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.833468214895618*^9, 
+  3.833468225433173*^9}},ExpressionUUID->"f7b4cd37-0bfd-490f-be04-\
+07428db645ec"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"list", " ", "=", 
+   RowBox[{"{", "}"}]}], ";"}]], "Input",ExpressionUUID->"36563fab-d3d4-4c54-\
+9355-3af9fd1220a8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+
+Simulation Process: For loop generates the swap curves.\
+\>", "Section",
+ CellChangeTimes->{{3.8334682366556234`*^9, 3.8334682732429843`*^9}, 
+   3.8334684160442333`*^9},ExpressionUUID->"e12b00ec-bd9e-45bc-80b6-\
+24e843ed695a"],
+
+Cell[BoxData[
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "\[LessEqual]", "9999"}], ",", 
+   RowBox[{
+    RowBox[{"i", "=", 
+     RowBox[{"i", "+", "1"}]}], ";", 
+    RowBox[{"a", "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+      "\"\<C:/.../Benchmark_MOR_Finance/source/SimulatedYieldCurves.xlsx\>\"",
+        ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Data\>\"", ",", "1", ",", "i"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"MySwapCurve", "=", 
+     RowBox[{
+      StyleBox["MakeSwapCurve", "FunctionName"], 
+      StyleBox["[", "FunctionName"], 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2019", ",", "1", ",", "22"}], "}"}], 
+       StyleBox[",", "IT",
+        FontWeight->"Plain"], 
+       RowBox[{"Thread", "[", 
+        RowBox[{"{", 
+         RowBox[{"t1", ",", "a"}], "}"}], "]"}], ",", 
+       RowBox[{"SwapFrequency", "\[Rule]", "\"\<Quarter-Annual\>\""}], ",", 
+       RowBox[{"SwapBasis", "\[Rule]", "\"\<ACT/360\>\""}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"DD", " ", "=", 
+     RowBox[{"\"\<Rates\>\"", " ", "/.", " ", 
+      RowBox[{"Properties", "[", "MySwapCurve", "]"}]}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Swaps", "=", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"list", ",", "DD"}], "]"}]}], ";"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8334685066138024`*^9, 3.833468515924161*^9}, 
+   3.8336018743675528`*^9},ExpressionUUID->"bf04e255-ae5c-4261-bc20-\
+5f9b012fd67c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+
+Set a directory for your output\
+\>", "Section",
+ CellChangeTimes->{{3.8334682988945937`*^9, 
+  3.8334683048147464`*^9}},ExpressionUUID->"89291e4b-255c-4c2d-8e64-\
+f78e7933df65"],
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",ExpressionUUID->\
+"76476b91-c0a9-4e34-a225-cb30d7167427"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Export the swap curves in an excel file", "Section",
+ CellChangeTimes->{{3.833468323732143*^9, 
+  3.833468331598522*^9}},ExpressionUUID->"840605bd-056e-484b-a3d3-\
+e45f4910e865"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<C:/.../Benchmark_MOR_Finance/source/ReferenceRate.xlsx\>\"", ",", 
+    "Swaps"}], "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{
+  3.8334683752602644`*^9, 3.8336018798500843`*^9, {3.8337194604767246`*^9, 
+   3.8337194624437094`*^9}},ExpressionUUID->"7c942541-67c2-4cd7-943d-\
+91219703de9c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Check the details of your model using the following function", "Section",
+ CellChangeTimes->{
+  3.833468398195525*^9},ExpressionUUID->"2cea4f1b-0b67-4d52-a603-\
+9840dde43655"],
+
+Cell[BoxData[
+ RowBox[{"Properties", "[", "MySwapCurve", "]"}]], "Input",
+ CellChangeTimes->{
+  3.833468412316327*^9},ExpressionUUID->"71d4360c-5260-4002-934d-\
+a906ea7efeb2"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{2552, Automatic}, {Automatic, -8}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 165, 3, 96, "Title",ExpressionUUID->"d4e38c14-4604-420f-8dce-fb7da8a6b5aa"],
+Cell[CellGroupData[{
+Cell[770, 29, 307, 12, 209, "Subsection",ExpressionUUID->"d607ef56-66f4-4286-8540-2cb891365ddd"],
+Cell[1080, 43, 157, 3, 34, "Text",ExpressionUUID->"cbbd0a74-7714-46c8-8098-24204d919cd5"],
+Cell[1240, 48, 291, 7, 67, "Input",ExpressionUUID->"87132680-580c-4a4d-8b81-94b0c68a12bc"],
+Cell[1534, 57, 168, 3, 34, "Text",ExpressionUUID->"2e762729-b9ec-4be5-82cf-f40fd1881af3"],
+Cell[CellGroupData[{
+Cell[1727, 64, 509, 9, 28, "Input",ExpressionUUID->"24007d40-355a-4f41-b9df-c345010e733b"],
+Cell[2239, 75, 443, 8, 32, "Output",ExpressionUUID->"19b6912c-060c-4109-938c-6a76b3e89589"]
+}, Open  ]],
+Cell[2697, 86, 186, 6, 56, "Text",ExpressionUUID->"9bcba76b-2657-465c-a426-53f9d861f30c"],
+Cell[2886, 94, 203, 5, 28, "Input",ExpressionUUID->"51e2aba9-4bd1-40ab-8ffd-b0575308cf74"],
+Cell[3092, 101, 152, 3, 28, "Input",ExpressionUUID->"f7b4cd37-0bfd-490f-be04-07428db645ec"],
+Cell[3247, 106, 151, 4, 28, "Input",ExpressionUUID->"36563fab-d3d4-4c54-9355-3af9fd1220a8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3435, 115, 238, 6, 105, "Section",ExpressionUUID->"e12b00ec-bd9e-45bc-80b6-24e843ed695a"],
+Cell[3676, 123, 1512, 40, 86, "Input",ExpressionUUID->"bf04e255-ae5c-4261-bc20-5f9b012fd67c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5225, 168, 189, 6, 105, "Section",ExpressionUUID->"89291e4b-255c-4c2d-8e64-f78e7933df65"],
+Cell[5417, 176, 161, 3, 28, "Input",ExpressionUUID->"76476b91-c0a9-4e34-a225-cb30d7167427"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5615, 184, 184, 3, 67, "Section",ExpressionUUID->"840605bd-056e-484b-a3d3-e45f4910e865"],
+Cell[5802, 189, 375, 9, 48, "Input",ExpressionUUID->"7c942541-67c2-4cd7-943d-91219703de9c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6214, 203, 181, 3, 67, "Section",ExpressionUUID->"2cea4f1b-0b67-4d52-a603-9840dde43655"],
+Cell[6398, 208, 175, 4, 28, "Input",ExpressionUUID->"71d4360c-5260-4002-934d-a906ea7efeb2"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
