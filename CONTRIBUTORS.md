@@ -1,4 +1,5 @@
 ## List of contributors in the example-repo project
 
-* Andrés Prieto, Universiy of A Coruña
-* Lena Scholz TU Berlin
+* Onkar Jadhav, TU Berlin
+* Andreas Binder, MathConsult GmbH
+* Volker Mehrmann, TU Berlin
