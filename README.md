@@ -1,4 +1,5 @@
-# Example of a ROMSOC benchmark repository
+# Benchmarks for model order reduction in finance
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5171809.svg)](https://doi.org/10.5281/zenodo.5171809)
 
 ## Summary
 Benchmark cases for yield curve simulation, classical and adaptive greedy sampling approaches developed in https://doi.org/10.1186/s13362-021-00105-8.
