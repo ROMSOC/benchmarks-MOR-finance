@@ -145,4 +145,4 @@ TenorPoints = [(65/260) (130/260) (195/260) 1 2 3 4 5 6 7 8 9 10 12 15 20 25 30 
 [fig3] = SYPlot(Sim_returnPerc)
 %%
 % 
-% xlswrite('SimulatedYieldCurves.xlsx', Sim_return(:,[1 4:13]));
+xlswrite('SimulatedYieldCurves.xlsx', Sim_return(:,[1 4:13]));
