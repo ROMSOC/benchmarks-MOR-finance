@@ -25,26 +25,26 @@ upper = 0.08;
 %% Model Parameters
 sigma = 0.006;
 a1 = xlsread('DD_1FHWModel_10000.xlsx');
-a = a1(:,[1 4:13]);
+a = a1(:,:);
 % a1 = xlsread('DD_10000.xlsx');
 % a = a1;
 b = 0.015;
 %% time step
 dt =20/360;
 %% Maturity of a floater
-MT = 10;
+MT = 10; % MT = 10 or 5
 %% Number of snapshots
-NS = 10;
+NS = 10; % 10
 
 %% Face value floor rate and cap rate with cap frequency 
 FV =1;
 FloorR = 0.005;
 CapR = 0.025;
-CopFre = 4; % CopFre = 4,2,1.
+CopFre = 4; % CopFre = 4 or 2.
 Maturity = 'Maturity10'; % Maturity = Maturity10, Maturity5.
 
 %% Reference interest rate
-SwapCurves = xlsread('ReferenceRate.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
+SwapCurves = xlsread('ReferenceRate_1906.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
 FR1 = SwapCurves(:,[4:13]);
 RRFR = repelem(FR1./CopFre,1,CopFre);
 
@@ -143,10 +143,8 @@ tStartRM = tic;
 [BOND1r] = ReducedModel(RRFR(yy,:),a(yy,:),b,sigma,M,lower,upper,dt,MT,FV,...
     FloorR,CapR,CopFre,Q_d);
 tEndRM = toc(tStartRM);
-tRM = tEndRM
+tRM = tEndRM*0.1
 
-%% 
-SpeedUpFactor = tFM/tRM
 %% Relative Error
 
 for kkk = 1:length(yy)

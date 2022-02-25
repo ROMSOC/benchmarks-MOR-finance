@@ -28,7 +28,7 @@
 %% Run Benchmark
 
     % Specify the folder where the files live.
-    myFolder = 'Benchmark_MOR_Finance\source';
+    myFolder = 'Benchmark_MOR_Finance\source\';
     % Check to make sure that folder actually exists.  Warn user if it doesn't.
     if ~isfolder(myFolder)
         errorMessage = sprintf('Error: The following folder does not exist:\n%s\nPlease specify the correct folder.', myFolder);

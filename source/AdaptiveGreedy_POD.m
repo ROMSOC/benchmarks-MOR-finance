@@ -27,7 +27,7 @@ upper = 0.08;
 %% Model Parameters
 sigma = 0.006;
 a1 = xlsread('DD_1FHWModel_10000.xlsx');
-a = a1(:,[1 4:13]);
+a = a1(:,:);
 % a1 = xlsread('DD_10000.xlsx');
 % a = a1;
 b = 0.015;
@@ -46,7 +46,7 @@ CopFre = 4; % CopFre = 4,2,1.
 Maturity = 'Maturity10'; % Maturity = Maturity10, Maturity5.
 
 %% Reference interest rate
-SwapCurves = xlsread('ReferenceRate.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
+SwapCurves = xlsread('ReferenceRate_1906.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
 FR1 = SwapCurves(:,[4:13]);
 RRFR = repelem(FR1./CopFre,1,CopFre);
 
@@ -209,7 +209,7 @@ Eg = diag(S1)./sum(diag(S1));
 % 
 for ii = 1:length(Eg)
     SumEg = sum(Eg(1:ii,1))*100;
-    if SumEg > 99.99999
+    if SumEg > 99.999
         d = ii;
         break
     end
@@ -235,10 +235,10 @@ tStartRM = tic;
 [BOND1r] = ReducedModel(RRFR(yy,:),a(yy,:),b,sigma,M,lower,upper,dt,MT,FV,...
     FloorR,CapR,CopFre,Q_d);
 tEndRM = toc(tStartRM);
-tRM = tEndRM
+tRM = tEndRM*0.1
 
 %% 
-SpeedUpFactor = tFM/tRM
+% SpeedUpFactor = tFM/tRM
 %% Relative Error
 
 for kkk = 1:length(yy)
