@@ -18,7 +18,7 @@
 format long
 
 %Read the interest rate matrix (historical data)
-A = xlsread('HistoricalData.xlsx');
+A = xlsread('benchmarks/HistoricalData.xlsx');
 %% Correct the interest rates making sure all elements are positive
 
 a = 0.1; % correction factor

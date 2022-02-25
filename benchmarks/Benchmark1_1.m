@@ -27,7 +27,8 @@
 
     % Specify the folder where the files live.
 %     cd Benchmark_MOR_Finance
-    myFolder = 'Benchmark_MOR_Finance\source';
+    myFolder = pwd;
+    
     % Check to make sure that folder actually exists.  Warn user if it doesn't.
     if ~isfolder(myFolder)
         errorMessage = sprintf('Error: The following folder does not exist:\n%s\nPlease specify the correct folder.', myFolder);
@@ -38,5 +39,7 @@
             return;
         end
     end
-    
-    run('YieldCurveSimulation.m')
+    cd ..
+    path = [pwd filesep 'source' filesep];
+    newFile = fullfile(path,'YieldCurveSimulation.m');
+    run(newFile)

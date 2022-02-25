@@ -31,7 +31,7 @@
 %% Run Benchmark
 
     % Specify the folder where the files live.
-    myFolder = 'Benchmark_MOR_Finance\source';
+    myFolder = pwd;
     % Check to make sure that folder actually exists.  Warn user if it doesn't.
     if ~isfolder(myFolder)
         errorMessage = sprintf('Error: The following folder does not exist:\n%s\nPlease specify the correct folder.', myFolder);
@@ -43,5 +43,7 @@
         end
     end
     
-%     cd('C:\Benchmark_MOR_Finance');
-    run('AdaptiveGreedy_POD.m')
+    cd ..
+    path = [pwd filesep 'source' filesep];
+    newFile = fullfile(path,'AdaptiveGreedy_POD.m');
+    run(newFile)

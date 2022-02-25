@@ -26,7 +26,7 @@ lower = -0.08;                                  % Lower bound of r given by eq. 
 upper = 0.08;
 %% Model Parameters
 sigma = 0.006;
-a1 = xlsread('DD_1FHWModel_10000.xlsx');
+a1 = xlsread('benchmarks/DD_1FHWModel_10000.xlsx');
 a = a1(:,:);
 % a1 = xlsread('DD_10000.xlsx');
 % a = a1;
@@ -46,7 +46,7 @@ CopFre = 4; % CopFre = 4,2,1.
 Maturity = 'Maturity10'; % Maturity = Maturity10, Maturity5.
 
 %% Reference interest rate
-SwapCurves = xlsread('ReferenceRate_1906.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
+SwapCurves = xlsread('benchmarks/ReferenceRate_1906.xlsx'); %% Obtained by runing SwapCurveSimulation.nb file
 FR1 = SwapCurves(:,[4:13]);
 RRFR = repelem(FR1./CopFre,1,CopFre);
 
