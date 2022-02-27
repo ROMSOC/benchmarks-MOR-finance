@@ -14,7 +14,7 @@ In the source directory, one can find all source files required to run the bench
 
 ## Benchmark execution
 The benchmark case can be run using the script files Benchmarkx_x.m. Alternatively, please use the following link to run a user-friendly Jupyter Notebook Benchmark.ipynb where the Benchmark2_1 (classical greedy sampling) is implemented:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-ROMR-schemes/HEAD?labpath=Benchmark.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-ROMR-schemes/HEAD?labpath=source/Benchmark2_1.ipynb)
 
 ## Disclaimer
 In downloading this SOFTWARE you are deemed to have read and agreed to the following terms:
