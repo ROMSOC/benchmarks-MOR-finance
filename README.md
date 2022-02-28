@@ -13,7 +13,7 @@ It is essential to be aware of the financial risk associated with an invested pr
 In the source directory, one can find all source files required to run the benchmark cases. The directory benchmark contains the input data with the executable files. The ``Benchmark1_1.m`` file executes the yield curve simulation while the ``Benchmark1_2.nb`` file runs the parameter calibration. The classical greedy and adaptive greedy sampling techniques can be executed using ``Benchmark2_1.m`` and ``Benchmark2_2.m`` files. One can find a PDf file with a detailed step-by-step description of the benchmark case in the directory documentation. 
 
 ## Benchmark execution
-The benchmark case can be run using the script files Benchmarkx_x.m. Alternatively, please use the following link to run a user-friendly Jupyter Notebook Benchmark.ipynb where the Benchmark2_1 (classical greedy sampling) is implemented:
+The benchmark case can be run using the script files Benchmarkx_x.m. Alternatively, please use the following link to run a user-friendly Jupyter Notebook (``*.ipynb``) with different benchmark scenarios. For instance, Benchmark 2.1 (classical greedy sampling) is implemented at:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-ROMR-schemes/HEAD?labpath=source/Benchmark2_1.ipynb)
 
 ## Disclaimer
