@@ -1,7 +1,7 @@
 <img src="images/romsoclogo-logo.png" alt="ROMSOC logo"  width="150"/>
 
 # Benchmarks for model order reduction in finance
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5171809.svg)](https://doi.org/10.5281/zenodo.5171809)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5171809.svg)](https://doi.org/10.5281/zenodo.5171809) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-MOR-finance/HEAD?labpath=source/Benchmark2_1.ipynb)
 
 ## Summary
 Benchmark cases for yield curve simulation, classical and adaptive greedy sampling approaches developed in https://doi.org/10.1186/s13362-021-00105-8.
@@ -13,8 +13,19 @@ It is essential to be aware of the financial risk associated with an invested pr
 In the source directory, one can find all source files required to run the benchmark cases. The directory benchmark contains the input data with the executable files. The ``Benchmark1_1.m`` file executes the yield curve simulation while the ``Benchmark1_2.nb`` file runs the parameter calibration. The classical greedy and adaptive greedy sampling techniques can be executed using ``Benchmark2_1.m`` and ``Benchmark2_2.m`` files. One can find a PDf file with a detailed step-by-step description of the benchmark case in the directory documentation. 
 
 ## Benchmark execution
-The benchmark case can be run using the script files Benchmarkx_x.m. Alternatively, please use the following link to run a user-friendly Jupyter Notebook (``*.ipynb``) with different benchmark scenarios. For instance, Benchmark 2.1 (classical greedy sampling) is implemented at:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-MOR-finance/HEAD?labpath=source/Benchmark2_1.ipynb)
+The benchmark case can be run using the script files Benchmarkx_x.m. 
+
+## Run Jupyter notebooks
+The entire benchmark repository can be executed in a provided Docker container where a full installation of Octave is available. Once you have clone or downloaded this repository, to build the container just type
+```bash
+docker build -t benchmarks-MOR-finance . 
+```
+and for running it locally:
+```bash
+docker run -it --rm -p 8888:8888 benchmarks-MOR-finance jupyter-lab --ip=0.0.0.0 --port=8888 --allow-root
+```
+Alternatively, please use the following link to run a user-friendly Jupyter Notebook (``*.ipynb``) with different benchmark scenarios. For instance, Benchmark 2.1 (classical greedy sampling) is implemented at:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ROMSOC/benchmarks-MOR-finance/HEAD?labpath=source/Benchmark2_1.ipynb) Please, notice that mybinder cloud computations are limited to 2GB of RAM memory.
 
 ## Disclaimer
 In downloading this SOFTWARE you are deemed to have read and agreed to the following terms:
